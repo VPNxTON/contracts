@@ -1,10 +1,10 @@
 import { Address, Cell, contractAddress, StateInit, toNano } from "ton";
 import {
-  VudiNewYearCollectionCodeCell,
-  VudiNewYearItemCodeCell,
-} from "./VudiNewYear.source";
+  VXTCollectionCodeCell,
+  VXTItemCodeCell,
+} from "./VXT.source";
 import qrcode from "qrcode-terminal";
-import { buildNftCollectionDataCell } from "./VudiUtils";
+import { buildNftCollectionDataCell } from "./VXTUtils";
 import qs from "qs";
 
 // CONFIG CONSTANTS
@@ -12,20 +12,20 @@ import qs from "qs";
 const MODE: "test" | "main" = "test";
 
 const OWNER_ADDRESS = Address.parse(
-  "kQD51fCnbbKyzAfxNF0Bsi4hXZ8JC0Md2-aB9hqo6H5Ymk9w"
+  "EQALSQCRSAdi1bvetHnmhRCmli9jk8QBP-hVkW9j3nq6P09G"
 );
 
 // ------------------------
 
 const main = async () => {
-  const collectionCode = VudiNewYearCollectionCodeCell;
-  const itemCode = VudiNewYearItemCodeCell;
+  const collectionCode = VXTCollectionCodeCell;
+  const itemCode = VXTItemCodeCell;
 
   const defaultConfig = {
     ownerAddress: OWNER_ADDRESS,
     nextItemIndex: 0,
     collectionContent:
-      "https://ipfs.io/ipfs/QmW9boM44rdJCarBDzkEWRB8HSEBFJXjtVQTVggBCJZA11?filename=Vudi_Happy_new_Year.json",
+      "https://gateway.pinata.cloud/ipfs/QmeuDuwFnJTi1j5QXFVAqqm8mhZGxnBYD2bwDix6XD63cw",
     commonContent: "",
     nftItemCode: itemCode,
     royaltyParams: {
@@ -60,6 +60,7 @@ const main = async () => {
       amount: toNano(1).toString(10),
       init: initCell.toBoc({ idx: false }).toString("base64"),
     });
+  console.log(link)
   console.log("Address: " + address.toFriendly({ testOnly: true }));
   qrcode.generate(link, { small: true }, (code) => {
     console.log(code);

@@ -5,21 +5,21 @@ import qrcode from "qrcode-terminal";
 // CONFIG CONSTANTS
 
 const COLLECTION_ADDRESS = Address.parse(
-  "kQCcE4A36AzUOGfTYI_-NOxILUImU5T3YNH4ky5IXfsI1ovj"
+  "EQCHa481zMpugJewHnkz0GVRb4YINC89oi8yvTVUkXAW4lz0"
 );
 
 const OWNER_ADDRESS = Address.parse(
-  "kQD51fCnbbKyzAfxNF0Bsi4hXZ8JC0Md2-aB9hqo6H5Ymk9w"
+  "EQALSQCRSAdi1bvetHnmhRCmli9jk8QBP-hVkW9j3nq6P09G"
 );
 
 const RECEIVER_ADDRESS = Address.parse(
-  "kQCxLho_ohqvZnMMDxJQ81ngZ4SljtTBJYjswm3ewr-1v4yD"
+  "EQALSQCRSAdi1bvetHnmhRCmli9jk8QBP-hVkW9j3nq6P09G"
 );
 
-const INDEX = 1;
+const INDEX = 2;
 
 const METADATA_URL =
-  "https://ipfs.io/ipfs/Qmd5YSeFtha7PQpdRoQtWEgmadA7A679DecN2BfweWNXVD?filename=vudi-sbt.json";
+  "https://gateway.pinata.cloud/ipfs/QmTJCbaoZGG3VCEcj57excMSkZVzPSrC4J38rw6SSxpfSL";
 
 // ------------------------
 
@@ -55,7 +55,7 @@ const main = async () => {
   };
 
   const link = tonDeepLink(collectionAddr, amountToSend, preparedBodyCell);
-
+  console.log(link);
   qrcode.generate(link, { small: true }, (code) => {
     console.log(code);
   });

@@ -2,16 +2,16 @@ import { writeFile } from "fs/promises";
 import path from "path";
 import { Cell } from "ton";
 import {
-  VudiNewYearCollection,
-  VudiNewYearItem,
-} from "../src/VudiNewYear.source";
+  VXTCollection,
+  VXTItem,
+} from "../src/VXT.source";
 import { compileFunc } from "../src/utils/compileFunc";
 
 const buildCollectionSourceContent = (collection: Cell, item: Cell) => `
 import { Cell } from "ton";
 import { combineFunc } from "./utils/combineFunc";
 
-export const VudiNewYearCollection = () => {
+export const VXTCollection = () => {
   return combineFunc(__dirname, [
     "./contract/stdlib.fc",
     "./contract/params.fc",
@@ -20,14 +20,14 @@ export const VudiNewYearCollection = () => {
   ]);
 };
 
-const VudiNewYearCollectionCodeBoc =
+const VXTCollectionCodeBoc =
   '${collection.toBoc().toString("base64")}'
 
-export const VudiNewYearCollectionCodeCell = Cell.fromBoc(
-  Buffer.from(VudiNewYearCollectionCodeBoc, "base64")
+export const VXTCollectionCodeCell = Cell.fromBoc(
+  Buffer.from(VXTCollectionCodeBoc, "base64")
 )[0];
 
-export const VudiNewYearItem = () => {
+export const VXTItem = () => {
   return combineFunc(__dirname, [
     "./contract/stdlib.fc",
     "./contract/params.fc",
@@ -36,20 +36,20 @@ export const VudiNewYearItem = () => {
   ]);
 };
 
-const VudiNewYearItemCodeBoc =
+const VXTItemCodeBoc =
   '${item.toBoc().toString("base64")}'
 
-export const VudiNewYearItemCodeCell = Cell.fromBoc(
-  Buffer.from(VudiNewYearItemCodeBoc, "base64")
+export const VXTItemCodeCell = Cell.fromBoc(
+  Buffer.from(VXTItemCodeBoc, "base64")
 )[0];
 `;
 
 async function main() {
-  let collectionSource = await compileFunc(VudiNewYearCollection());
-  let itemSource = await compileFunc(VudiNewYearItem());
+  let collectionSource = await compileFunc(VXTCollection());
+  let itemSource = await compileFunc(VXTItem());
 
   await writeFile(
-    path.resolve(__dirname, "../src/VudiNewYear.source.ts"),
+    path.resolve(__dirname, "../src/VXT.source.ts"),
     buildCollectionSourceContent(collectionSource.cell, itemSource.cell)
   );
 }

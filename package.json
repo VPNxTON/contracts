@@ -1,12 +1,12 @@
 {
-  "name": "happy-new-year-sbt",
+  "name": "VXT",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "compile": "yarn ts-node scripts/compile.ts",
-    "deploy": "yarn ts-node src/VudiDeployCollection.ts",
-    "mint": "yarn ts-node src/VudiMintItem.ts"
+    "deploy": "yarn ts-node src/VXTDeployCollection.ts",
+    "mint": "yarn ts-node src/VXTMintItem.ts"
   },
   "repository": {
     "type": "git",
