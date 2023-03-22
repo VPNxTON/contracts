@@ -31,6 +31,21 @@ export function makeSnakeCell(data: Buffer) {
   return rootCell;
 }
 
+
+export function flattenSnakeCell(cell: Cell) {
+  let c: Cell|null = cell
+
+  let res = Buffer.alloc(0)
+
+  while (c) {
+      let cs = c.beginParse()
+      let data = cs.readRemainingBytes()
+      res = Buffer.concat([res, data])
+      c = c.refs[0]
+  }
+
+  return res
+}
 export function encodeOffChainContent(content: string) {
   let data = Buffer.from(content);
   let offChainPrefix = Buffer.from([OFF_CHAIN_CONTENT_PREFIX]);
@@ -38,6 +53,15 @@ export function encodeOffChainContent(content: string) {
   return makeSnakeCell(data);
 }
 
+export function decodeOffChainContent(content: Cell) {
+  let data = flattenSnakeCell(content)
+
+  let prefix = data[0]
+  if (prefix !== OFF_CHAIN_CONTENT_PREFIX) {
+      throw new Error(`Unknown content prefix: ${prefix.toString(16)}`)
+  }
+  return data.slice(1).toString()
+}
 export function buildNftCollectionDataCell(data: any) {
   let dataCell = new Cell();
 
